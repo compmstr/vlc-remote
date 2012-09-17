@@ -1,0 +1,2 @@
+launching vlc with remote interface:
+  vlc --extraintf oldrc --rc-host "<host>:<port>"
