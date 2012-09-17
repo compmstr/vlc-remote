@@ -1,0 +1,28 @@
+div#page{
+    }
+
+div.main-content > div{
+    padding: 0 10px;
+    width: 300px;
+    float: left;
+    }
+
+div.file-sel-content > div{
+    width: 300px;
+    float: left;
+    }
+
+div#status{
+    }
+div#controls{
+    }
+div#dvd-menu{
+    }
+
+div.controls-group{
+    float: left;
+    }
+
+span.status-time{
+    float: right;
+    }

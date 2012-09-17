@@ -1,19 +1,94 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=340px, initial-scale=1">
     <script src='/js/jquery.js'></script>
     <script src='/js/jquery.mobile.js'></script>
     <script src='/js/base.js'></script>
     <link rel='stylesheet' type='text/css' href='/css/base.css' />
+    <link rel='stylesheet' type='text/css' href='/css/jquery.mobile.css' />
   </head>
   <body>
-    <div data=role="page">
-      <div data-role="header">
+    <div id='main' data-role="page">
+      <div id='header' data-role="header">
 	<h1>VLC Remote</h1>
       </div><!-- /header -->
-      <div date-role="content">
-	<p>VLC Stuff<p>
+      <div class='main-content' date-role="content">
+	<div id='status' data-role='collapsible' data-collapsed='false'>
+	  <h3>Status</h3>
+	  <div id='status-file'>File Playing</div>
+	  <div id='status-position-wrap'>
+	    <input type='range' id='status-position' value='10' min='0' max='100' data-highlight='true' />
+	    <span class='status-time'>0:10/1:40</span>
+	  </div>
+	</div> <!-- /status -->
+	<div id='media-sel' data-role='collapsible' data-collapsed='true'>
+	  <h3>Media</h3>
+	  <a href="#file-sel" data-role="button" data-mini='true' data-inline='true'>File</a>
+	  <a href="#" data-role="button" data-mini='true' data-inline='true'>Play DVD</a>
+	</div><!-- /media-sel -->
+	<div id='controls' data-role="collapsible" data-collapsed='true'>
+	  <h3>Controls</h3>
+	  <div class='controls-group'>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">Pause</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">Stop</a>
+	  </div>
+	  <div class='controls-group'>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">Prev</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">Next</a>
+	  </div>
+	  <div class='controls-group'>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">&lt;&lt; 10s</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">&gt;&gt; 10s</a>
+	  </div>
+	  <div class='controls-group'>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">&lt;&lt; 1m</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true">&gt;&gt; 1m</a>
+	  </div>
+	</div> <!-- /controls -->
+	<div id='dvd-menu' data-role='collapsible' data-collapsed='true'>
+	  <h3>DVD Menu Controls</h3>
+	  <table>
+	    <tr>
+	      <td></td>
+	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Up</a></td>
+	      <td></td>
+	    </tr>
+	    <tr>
+	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Left</a></td>
+	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Enter</a></td>
+	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Right</a></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Down</a></td>
+	      <td></td>
+	    </tr>
+	  </table>
+	</div> <!-- /dvd-menu -->
       </div> <!-- /content -->
-    </div> <!-- /page -->
+    </div> <!-- /page main -->
+    <div data-role="page" id="file-sel">
+      <div data-role="header">
+	<h1>Select a File</h1>
+      </div> <!-- file-sel header -->
+      <div class='content' data-role="content">
+	<label for="directory">Dir:</label>
+	<input type='text' name='directory' id='directory' value='/home/corey/stuff/vids' />
+	<label for="media-type">Media Type:</label>
+	<select name='media-type' id='media-type' data-mini='true'>
+	  <option value="videos">Videos</option>
+	  <option value="audio">Audio</option>
+	</select>
+	<div data-role='collapsible' data-collapsed='true'>
+	  <h3>Files</h3>
+	  <ul data-role="listview">
+	    <li><a href="#main">File 1</a></li>
+	    <li><a href="#main">File 2</a></li>
+	    <li><a href="#main">File 3</a></li>
+	    <li><a href="#main">File 4</a></li>
+	  </ul>
+	</div> <!-- /file list -->
+      </div><!-- /content file-sel -->
+    </div><!-- /page file-sel -->
   </body>
 </html>
