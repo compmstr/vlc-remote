@@ -1,2 +1,33 @@
 launching vlc with remote interface:
   vlc --extraintf oldrc --rc-host "<host>:<port>"
+
+seems to send status change: messages when stuff happens (seek, end, etc)
+commands:
+  add <file> -- add file to playlist
+  enqueue <file> -- enqueue file in playlist
+  playlist -- show playlist
+  play
+  stop
+  next
+  prev
+  repeat on|off -- item repeat
+  loop on|off -- playlist repeat
+  random on|off
+  clear -- clear playlist
+  status -- playlist status
+  chapter [X] -- get/set chapter in item
+  seek X -- seek in seconds
+  pause
+  f [on|off] -- fullscreen (toggle with no param)
+  info -- info on current stream
+  get_time --time since stream start
+  is_playing -- 1 if playing, 0, otherwise
+  get_title -- title of current stream
+  get_length -- length of current stream (seconds)
+  volume [X] -- get/set volume
+  volup [X] -- raise volume X steps
+  voldown [X] -- lower volume X steps
+  atrack [X] -- get/set audio tracks
+  strack [X] -- set/set subtitle track
+  menu [on|off|up|down|left|right|select] -- use menu
+  key [hotkey name] -- simulate hotkey press
