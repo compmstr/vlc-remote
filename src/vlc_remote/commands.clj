@@ -82,6 +82,7 @@ If the xml is passed in, just uses that"
 
 ;;If value is a map, used as url params to the vlc web interface
 ;;If it's a function, it's executed to run the command
+;;  Function versions should return extra info to pass back to the client or nil
 (def command-handlers
   {"status" {}
    "pause" {:command "pl_pause"}})
@@ -94,7 +95,7 @@ a GET query string"
                         (map #(str (name (first %)) "=" (second %)) params))))
 
 (defn run-web-cmd
-  [params]
+  [params args]
   (let [query (if (zero? (count params))
                 ""
                 (map-to-query params))]
@@ -102,16 +103,21 @@ a GET query string"
 
 (defn command-response
   [req]
-  (let* [cmd-string (subs (:path-info req) 1)
-        cmd (command-handlers cmd-string)
-        cmd-func? (fn? cmd) ;;if the cmd is a func, we're not calling the web server
-        status (if cmd-func?
-                 (vlc-status)
-                 (run-web-cmd cmd))]
-    (-> (response
-         (json-str {:status status
-                    :command cmd-string}))
-        (content-type "application/json"))))
+  (let* [split-cmd (rest (string/split (:path-info req) #"/"))
+         cmd-string (first split-cmd)
+         cmd-args (rest split-cmd)
+         handler (command-handlers cmd-string)
+         handler-func? (fn? handler) ;;if the cmd is a func, we're not calling the web server
+         response (if handler-func?
+                    (handler cmd-args)
+                    (run-web-cmd handler cmd-args))
+         status (if handler-func?
+                  (vlc-status)
+                  response)]
+        (-> (response
+             (json-str {:status status
+                        :command cmd-string}))
+            (content-type "application/json"))))
 
 (def routes
   (app
