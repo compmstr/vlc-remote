@@ -33,9 +33,9 @@
 	  </div>
 	  <div class='controls-group'>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">Prev</a>
+	       onclick="runCommand('prev'); return false;">Prev</a>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">Next</a>
+	       onclick="runCommand('next'); return false;">Next</a>
 	  </div>
 	  <div class='controls-group'>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
@@ -45,9 +45,9 @@
 	  </div>
 	  <div class='controls-group'>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">&lt;&lt; 1m</a>
+	       onclick="runCommand('seek', '-60'); return false;">&lt;&lt; 1m</a>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">&gt;&gt; 1m</a>
+	       onclick="runCommand('seek', '+60'); return false;">&gt;&gt; 1m</a>
 	  </div>
 	</div> <!-- /controls -->
 	<div id='options' data-role='collapsible' data-collapsed='true'>
@@ -69,6 +69,11 @@
 	    <label for='subtitles2'>English</label>
 	    <input type='radio' name='subtitles' id='subtitles3' value='2' />
 	    <label for='subtitles3'>Spanish</label>
+	  </fieldset>
+	  <fieldset data-role="controlgroup" data-mini='true'>
+	    <legend>Misc:</legend>
+	    <label><input type='checkbox' name='fullscreen' id='fullscreen' data-mini="true" />
+	      Full Screen</label>
 	  </fieldset>
 	</div><!-- /options -->
 	<div id='dvd-menu' data-role='collapsible' data-collapsed='true'>

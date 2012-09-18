@@ -55,6 +55,9 @@ function statusCallback(data, ajaxStatus, xhr){
     $('div#status-state').text('[' + state + ']');
     var title = status.title;
     $('div#status-file').text(title);
+    //updating radio button:
+    //$('input#loop-options-' + new_val + '[name=loop-options]').attr('checked', true);
+    //$('input[name=loop-options]').checkboxradio('refresh');
 }
 
 function runCommand(command, arg){

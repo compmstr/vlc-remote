@@ -85,8 +85,12 @@ If the xml is passed in, just uses that"
 ;;  Function versions should return extra info to pass back to the client or nil
 (def command-handlers
   {"status" {}
+   "fullscreen" {:command "fullscreen"}
    "pause" {:command "pl_pause"}
-   "seek" {:command "seek"}})
+   "stop" {:command "pl_stop"}
+   "seek" {:command "seek"}
+   "next" {:command "pl_next"}
+   "prev" {:command "pl_previous"}})
 
 (defn map-to-query
   "Takes a map of keyword value pairs, and uses the keyword names and values to generate
