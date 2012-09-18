@@ -15,6 +15,8 @@
       <div class='main-content' date-role="content">
 	<div id='status' data-role='collapsible' data-collapsed='false'>
 	  <h3>Status</h3>
+	  <div id='status-state'>[paused]</div>
+	  <span>Current Media:</span><br />
 	  <div id='status-file'>File Playing</div>
 	  <div id='status-position-wrap'>
 	    <input type='range' id='status-position' value='10' min='0' max='100' data-highlight='true' />
@@ -29,20 +31,28 @@
 	<div id='controls' data-role="collapsible" data-collapsed='true'>
 	  <h3>Controls</h3>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">Pause</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">Stop</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand('pause'); return false;">Pause</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand('stop'); return false;">Stop</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">Prev</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">Next</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">Prev</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">Next</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">&lt;&lt; 10s</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">&gt;&gt; 10s</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">&lt;&lt; 10s</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">&gt;&gt; 10s</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">&lt;&lt; 1m</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true">&gt;&gt; 1m</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">&lt;&lt; 1m</a>
+	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	       onclick="runCommand(''); return false;">&gt;&gt; 1m</a>
 	  </div>
 	</div> <!-- /controls -->
 	<div id='options' data-role='collapsible' data-collapsed='true'>
