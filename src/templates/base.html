@@ -23,11 +23,6 @@
 	    <span class='status-time'>0:10/1:40</span>
 	  </div>
 	</div> <!-- /status -->
-	<div id='media-sel' data-role='collapsible' data-collapsed='true'>
-	  <h3>Media</h3>
-	  <a href="#file-sel" data-role="button" data-mini='true' data-inline='true'>File</a>
-	  <a href="#" data-role="button" data-mini='true' data-inline='true'>Play DVD</a>
-	</div><!-- /media-sel -->
 	<div id='controls' data-role="collapsible" data-collapsed='true'>
 	  <h3>Controls</h3>
 	  <div class='controls-group'>
@@ -44,9 +39,9 @@
 	  </div>
 	  <div class='controls-group'>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">&lt;&lt; 10s</a>
+	       onclick="runCommand('seek', '-10'); return false;">&lt;&lt; 10s</a>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand(''); return false;">&gt;&gt; 10s</a>
+	       onclick="runCommand('seek', '+10'); return false;">&gt;&gt; 10s</a>
 	  </div>
 	  <div class='controls-group'>
 	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
@@ -96,6 +91,11 @@
 	    </tr>
 	  </table>
 	</div> <!-- /dvd-menu -->
+	<div id='media-sel' data-role='collapsible' data-collapsed='true'>
+	  <h3>Media</h3>
+	  <a href="#file-sel" data-role="button" data-mini='true' data-inline='true'>File</a>
+	  <a href="#" data-role="button" data-mini='true' data-inline='true'>Play DVD</a>
+	</div><!-- /media-sel -->
       </div> <!-- /content -->
     </div> <!-- /page main -->
     <div data-role="page" id="file-sel">

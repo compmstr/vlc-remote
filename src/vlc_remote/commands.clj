@@ -85,7 +85,8 @@ If the xml is passed in, just uses that"
 ;;  Function versions should return extra info to pass back to the client or nil
 (def command-handlers
   {"status" {}
-   "pause" {:command "pl_pause"}})
+   "pause" {:command "pl_pause"}
+   "seek" {:command "seek"}})
 
 (defn map-to-query
   "Takes a map of keyword value pairs, and uses the keyword names and values to generate
@@ -95,10 +96,14 @@ a GET query string"
                         (map #(str (name (first %)) "=" (second %)) params))))
 
 (defn run-web-cmd
-  [params args]
-  (let [query (if (zero? (count params))
+  "It seems that all vlc http commands take the form of command=<cmd>[&val=<val>]"
+  [params val]
+  (let* [extra-params (if (empty? val)
+                        {}
+                        {:val (first val)})
+         query (if (zero? (count params))
                 ""
-                (map-to-query params))]
+                (map-to-query (merge params extra-params)))]
     (vlc-status (fetch-xml (str xml-url query)))))
 
 (defn command-response

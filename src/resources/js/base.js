@@ -57,12 +57,12 @@ function statusCallback(data, ajaxStatus, xhr){
     $('div#status-file').text(title);
 }
 
-function runCommand(command){
+function runCommand(command, arg){
     if(command == ""){
 	return;
     }
     $.ajax({
-	url: "/commands/" + command,
+	url: "/commands/" + command + ((arg) ? "/" + arg : ""),
 	data: null,
 	success: function(data, s, x){
 	    statusCallback(data, s, x);
