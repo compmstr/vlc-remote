@@ -1,6 +1,7 @@
 (ns vlc-remote.core
   (:require [vlc-remote.template :as template]
-            [vlc-remote.commands :as commands])
+            [vlc-remote.commands :as commands]
+            [vlc-remote.telnet :as telnet])
   (:use ring.util.response
         ring.middleware.params
         ring.middleware.resource
