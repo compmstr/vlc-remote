@@ -108,12 +108,12 @@ a GET query string"
          cmd-args (rest split-cmd)
          handler (command-handlers cmd-string)
          handler-func? (fn? handler) ;;if the cmd is a func, we're not calling the web server
-         response (if handler-func?
+         handler-response (if handler-func?
                     (handler cmd-args)
                     (run-web-cmd handler cmd-args))
          status (if handler-func?
                   (vlc-status)
-                  response)]
+                  handler-response)]
         (-> (response
              (json-str {:status status
                         :command cmd-string}))
