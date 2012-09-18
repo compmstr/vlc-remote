@@ -1,7 +1,6 @@
 (ns vlc-remote.core
   (:require [vlc-remote.template :as template]
-            [vlc-remote.commands :as commands]
-            [vlc-remote.telnet :as telnet])
+            [vlc-remote.commands :as commands])
   (:use ring.util.response
         ring.middleware.params
         ring.middleware.resource
@@ -22,11 +21,11 @@
    [&] template/page-404-response))
    
 
-(defonce server
+(defonce #^org.eclipse.jetty.server.Server server
   (run-jetty #'vlc-remote-handler {:port 8888 :join? false}))
 
 (defn reload []
   (.stop server)
-  (doall (map load ["template" "telnet" "commands" "core"]))
+  (doall (map load ["util" "template" "commands" "core"]))
   (.start server))
 
