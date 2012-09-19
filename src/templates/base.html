@@ -19,40 +19,42 @@
 	  <span>Current Media:</span><br />
 	  <div id='status-file'>File Playing</div>
 	  <div id='status-position-wrap'>
-	    <input type='range' id='status-position' value='10' min='0' max='100' data-highlight='true' />
+	    <input type='range' id='status-position' onchange='timeSliderChanged(this);' value='10' min='0' max='100' data-highlight='true' />
 	    <span class='status-time'>0:10/1:40</span>
 	  </div>
 	</div> <!-- /status -->
 	<div id='controls' data-role="collapsible" data-collapsed='true'>
 	  <h3>Controls</h3>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	    <a href="#" data-role="button" data-inline="true" rel="external"
+	       onclick="runCommand('play'); return false;">Play</a>
+	    <a href="#" data-role="button" data-inline="true" rel="external"
 	       onclick="runCommand('pause'); return false;">Pause</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	    <a href="#" data-role="button" data-inline="true" rel="external"
 	       onclick="runCommand('stop'); return false;">Stop</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	    <a href="#" data-role="button" data-inline="true" rel="external"
 	       onclick="runCommand('prev'); return false;">Prev</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
+	    <a href="#" data-role="button" data-inline="true" rel="external"
 	       onclick="runCommand('next'); return false;">Next</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand('seek', '-10'); return false;">&lt;&lt; 10s</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand('seek', '+10'); return false;">&gt;&gt; 10s</a>
+	    <a href="#" data-role="button" data-inline="true" rel="external"
+	       onclick="doSeek('-10'); return false;">&lt;&lt; 10s</a>
+	    <a href="#" data-role="button" data-inline="true" rel="external"
+	       onclick="doSeek('+10'); return false;">&gt;&gt; 10s</a>
 	  </div>
 	  <div class='controls-group'>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand('seek', '-60'); return false;">&lt;&lt; 1m</a>
-	    <a href="#" data-role="button" data-mini="true" data-inline="true" rel="external"
-	       onclick="runCommand('seek', '+60'); return false;">&gt;&gt; 1m</a>
+	    <a href="#" data-role="button" data-inline="true" rel="external"
+	       onclick="doSeek('-60'); return false;">&lt;&lt; 1m</a>
+	    <a href="#" data-role="button" data-inline="true" rel="external"
+	       onclick="doSeek('+60'); return false;">&gt;&gt; 1m</a>
 	  </div>
 	</div> <!-- /controls -->
 	<div id='options' data-role='collapsible' data-collapsed='true'>
 	  <h3>Options</h3>
-	  <fieldset data-role="controlgroup" data-type="horizontal" data-mini='true'>
+	  <fieldset data-role="controlgroup" data-type="horizontal">
 	    <legend>Loop:</legend>
 	    <input type='radio' name='loop-options' id='loop-options-none' value='none' checked='checked' />
 	    <label for='loop-options-none'>None</label>
@@ -61,7 +63,7 @@
 	    <input type='radio' name='loop-options' id='loop-options-all' value='all' />
 	    <label for='loop-options-all'>All</label>
 	  </fieldset>
-	  <fieldset data-role="controlgroup" data-mini='true'>
+	  <fieldset data-role="controlgroup">
 	    <legend>Subtitles:</legend>
 	    <input type='radio' name='subtitles' id='subtitles1' value='none' checked='checked' />
 	    <label for='subtitles1'>None</label>
@@ -70,9 +72,9 @@
 	    <input type='radio' name='subtitles' id='subtitles3' value='2' />
 	    <label for='subtitles3'>Spanish</label>
 	  </fieldset>
-	  <fieldset data-role="controlgroup" data-mini='true'>
+	  <fieldset data-role="controlgroup">
 	    <legend>Misc:</legend>
-	    <label><input type='checkbox' name='fullscreen' id='fullscreen' data-mini="true" />
+	    <label><input type='checkbox' name='fullscreen' id='fullscreen' />
 	      Full Screen</label>
 	  </fieldset>
 	</div><!-- /options -->
@@ -81,25 +83,25 @@
 	  <table>
 	    <tr>
 	      <td></td>
-	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Up</a></td>
+	      <td><a href="#" data-role='button' data-inline='true'>Up</a></td>
 	      <td></td>
 	    </tr>
 	    <tr>
-	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Left</a></td>
-	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Enter</a></td>
-	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Right</a></td>
+	      <td><a href="#" data-role='button' data-inline='true'>Left</a></td>
+	      <td><a href="#" data-role='button' data-inline='true'>Enter</a></td>
+	      <td><a href="#" data-role='button' data-inline='true'>Right</a></td>
 	    </tr>
 	    <tr>
 	      <td></td>
-	      <td><a href="#" data-role='button' data-mini='true' data-inline='true'>Down</a></td>
+	      <td><a href="#" data-role='button' data-inline='true'>Down</a></td>
 	      <td></td>
 	    </tr>
 	  </table>
 	</div> <!-- /dvd-menu -->
 	<div id='media-sel' data-role='collapsible' data-collapsed='true'>
 	  <h3>Media</h3>
-	  <a href="#file-sel" data-role="button" data-mini='true' data-inline='true'>File</a>
-	  <a href="#" data-role="button" data-mini='true' data-inline='true'>Play DVD</a>
+	  <a href="#file-sel" data-role="button" data-inline='true'>File</a>
+	  <a href="#" data-role="button" data-inline='true'>Play DVD</a>
 	</div><!-- /media-sel -->
       </div> <!-- /content -->
     </div> <!-- /page main -->
@@ -111,7 +113,7 @@
 	<label for="directory">Dir:</label>
 	<input type='text' name='directory' id='directory' value='/home/corey/stuff/vids' />
 	<label for="media-type">Media Type:</label>
-	<select name='media-type' id='media-type' data-mini='true'>
+	<select name='media-type' id='media-type'>
 	  <option value="videos">Videos</option>
 	  <option value="audio">Audio</option>
 	</select>

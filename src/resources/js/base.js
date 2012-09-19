@@ -31,7 +31,14 @@ function secondsToHHMMSS (raw){
 }
 
 function updateTimeDisplay(curTime, maxTime){
-    $('input#status-position').attr('max', maxTime).val(curTime).slider('refresh');
+		var posElt = $('input#status-position');
+		var oldTime = posElt.val();
+		if(Math.abs(oldTime - curTime) > 3){
+			//If this would trigger an onChange event where it would try to seek,
+			// ignore this update
+			posElt[0].ignoreNextChange = true;
+		}
+    posElt.attr('max', maxTime).val(curTime).slider('refresh');
     var curTimeString = secondsToHHMMSS(curTime);
     var maxTimeString = secondsToHHMMSS(maxTime);
     $('span.status-time').text(curTimeString + "/" + maxTimeString);
@@ -44,6 +51,26 @@ function timeDisplayIntervalUpdate(){
       var maxTime = parseInt(timeElt.attr('max'));
       updateTimeDisplay(curTime + 1, maxTime);
     }
+}
+
+function timeSliderChanged(field){
+		field.old = (typeof(field.recent) == undefined) ? 0 : field.recent;
+		field.recent = field.value;
+		var diff = Math.abs(field.recent - field.old);
+		if(diff > 3){
+			if(field.ignoreNextChange == true){
+					field.ignoreNextChange = false;
+					return;
+			}
+			var newTime = $('input#status-position').val();
+			doSeek(newTime);
+		}
+}
+
+function doSeek(newTime){
+		//Because seeking causes the slider to update, we need to ignore the next change
+		$('input#status-position')[0].ignoreNextChange = true;
+		runCommand('seek', newTime);
 }
 
 function statusCallback(data, ajaxStatus, xhr){
@@ -62,18 +89,18 @@ function statusCallback(data, ajaxStatus, xhr){
 
 function runCommand(command, arg){
     if(command == ""){
-	return;
+				return;
     }
     $.ajax({
-	url: "/commands/" + command + ((arg) ? "/" + arg : ""),
-	data: null,
-	success: function(data, s, x){
-	    statusCallback(data, s, x);
-	    //go ahead and update the status, since the response from the vlc
-	    //  http server does the current status, not the new one
-	    statusUpdate();
-	},
-	dataType: 'json'});
+				url: "/commands/" + command + ((arg) ? "/" + arg : ""),
+				data: null,
+				success: function(data, s, x){
+						statusCallback(data, s, x);
+						//go ahead and update the status, since the response from the vlc
+						//  http server does the current status, not the new one
+						statusUpdate();
+				},
+				dataType: 'json'});
 }
 
 $(document).ready(function(){

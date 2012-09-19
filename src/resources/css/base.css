@@ -18,6 +18,9 @@ div#controls{
     }
 div#dvd-menu{
     }
+div#dvd-menu td{
+		text-align: center;
+		}
 
 div.controls-group{
     float: left;

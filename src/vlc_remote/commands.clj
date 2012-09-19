@@ -33,7 +33,11 @@ ex: :command \"pl_pause\" gets turned into ?command=pl_pause"
 
 (defn fetch-xml
   ([] (fetch-xml xml-url))
-  ([url] (html-resource (java.net.URL. url))))
+  ([url] (try
+           (html-resource (java.net.URL. url))
+           (catch Exception e
+             ;(println "Error fetching url: " (.getMessage e))
+             nil))))
 
 (defn status-xml-attr
   [xml & attrs]
@@ -59,10 +63,12 @@ If the xml is passed in, just uses that"
   ([]
      (vlc-status (fetch-xml)))
   ([xml]
-  (status-xml-attrs xml
-                    :volume :time :length
-                    :state :fullscreen :random :loop
-                    :repeat [:meta-information :title])))
+     (if (nil? xml)
+       {}
+       (status-xml-attrs xml
+                         :volume :time :length
+                         :state :fullscreen :random :loop
+                         :repeat [:meta-information :title]))))
 
 (defn vlc-one-stream-info
   [stream]
@@ -86,6 +92,7 @@ If the xml is passed in, just uses that"
 (def command-handlers
   {"status" {}
    "fullscreen" {:command "fullscreen"}
+   "play" {:command "pl_play"}
    "pause" {:command "pl_pause"}
    "stop" {:command "pl_stop"}
    "seek" {:command "seek"}
