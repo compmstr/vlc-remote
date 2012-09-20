@@ -1,3 +1,10 @@
+function isEmpty(obj){
+		for(var prop in obj){
+				if(obj.hasOwnProperty(prop))
+						return false;
+		}
+		return true;
+}
 
 function statusUpdate(){
     $.ajax({
@@ -75,6 +82,9 @@ function doSeek(newTime){
 
 function statusCallback(data, ajaxStatus, xhr){
     var status = data.status;
+		if(isEmpty(status)){
+				return;
+		}
     var curTime = parseInt(status.time);
     var maxTime = parseInt(status.length);
     updateTimeDisplay(curTime, maxTime);
