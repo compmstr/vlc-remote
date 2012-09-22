@@ -5,7 +5,8 @@
         [clojure.data.json :only [json-str read-json]])
   (:require wmctrl robot
             [clojure.string :as string])
-  (:import [java.io BufferedReader InputStreamReader]))
+  (:import [java.io BufferedReader InputStreamReader]
+           [java.awt.event KeyEvent]))
 
 (def json-url "http://localhost:8080/requests/status.json")
 (def xml-url "http://localhost:4212/requests/status.xml")
@@ -86,6 +87,10 @@ If the xml is passed in, just uses that"
                                              [:information
                                               [:category (attr-starts "Stream")]])))))
 
+(defn dvd-control [key]
+  (wmctrl/bring-window-to-front "vlc")
+  (robot/key-press key))
+
 ;;If value is a map, used as url params to the vlc web interface
 ;;If it's a function, it's executed to run the command
 ;;  Function versions should return extra info to pass back to the client or nil
@@ -97,7 +102,13 @@ If the xml is passed in, just uses that"
    "stop" {:command "pl_stop"}
    "seek" {:command "seek"}
    "next" {:command "pl_next"}
-   "prev" {:command "pl_previous"}})
+   "prev" {:command "pl_previous"}
+   "dvd-left" (fn [& _] (dvd-control "left"))
+   "dvd-right" (fn [& _] (dvd-control "right"))
+   "dvd-up" (fn [& _] (dvd-control "up"))
+   "dvd-down" (fn [& _] (dvd-control "down"))
+   "dvd-enter" (fn [& _] (dvd-control "enter"))
+   })
 
 (defn map-to-query
   "Takes a map of keyword value pairs, and uses the keyword names and values to generate

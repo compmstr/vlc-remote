@@ -1,6 +1,7 @@
 (ns robot
   (:import [java.awt Robot GraphicsEnvironment GraphicsDevice]
-           [java.awt.event KeyEvent InputEvent]))
+           [java.awt.event KeyEvent InputEvent]
+           clojure.lang.Reflector))
 
 (defn get-robot []
   (let [environ (GraphicsEnvironment/getLocalGraphicsEnvironment)
@@ -30,6 +31,15 @@
         (.keyRelease KeyEvent/VK_UP)
         (.delay 200)))))
 
+;(defmacro get-vkey-new
+  ;[key]
+  ;(let [sym (symbol (str "VK_" (.toUpperCase key)))]
+  ;`(. java.awt.event.KeyEvent ~sym)))
+
+(defn get-vkey-new
+  [key]
+  (Reflector/getStaticField "java.awt.event.KeyEvent" (str "VK_" (.toUpperCase key))))
+
 (defn- get-vkey
   "Returns the KeyEvent/VK_<key> for use with robot"
   [key]
@@ -41,7 +51,7 @@
   "Performs a key press, using strings of VK_... codes
 ex: \"Control\" \"d\" does ctrl-d"
   [& keys]
-  (let [keycodes (map get-vkey keys)
+  (let [keycodes (map #(get-vkey-new %) keys)
         rob (get-robot)]
     (doseq [code keycodes]
       (doto rob
