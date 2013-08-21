@@ -28,20 +28,22 @@
          lst-entries (string/split (:out lst-raw) #"\n")]
         lst-entries))
 
-(defn find-windows [title]
-  (filter (complement nil?)
-          (map #(re-find 
-                 (re-pattern (str "(?i)" ".*" title ".*")) ;;The (?i) is for case insensitive
-                 %)
-               (wmctrl-list))))
+(defn- split-wmctrl-entry
+  [entry]
+  (let [[id desktop host & name] (string/split entry #"\s+")]
+    {:id id :desktop desktop :host host :name (apply str (interpose " " name))}))
 
-(defn- find-window-ids [title]
-  (map #(first (string/split % #"\s+"))
-       (find-windows title)))
+(defn find-windows 
+  ([]
+     (find-windows nil))
+  ([title]
+     (filter (comp (partial re-find (re-pattern (str "(?i).*" title ".*")))
+                   :name)
+             (map split-wmctrl-entry (wmctrl-list)))))
 
 (defn bring-window-to-front
   "Bring window with title containing param to front
 returns nil if window not found"
   [title]
-  (if-let [win-id (first (find-window-ids title))]
+  (if-let [win-id (:id (first (find-windows title)))]
     (sh/sh "wmctrl" "-i" "-R" win-id)))
