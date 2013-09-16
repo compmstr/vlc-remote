@@ -10,12 +10,8 @@ through http (such as dvd menus)
 At the moment I'm only targetting linux, since wmctrl (the library for bringing windows
 to the front to make sure they have input), only runs on X11.
 
-## Usage
-
-FIXME: write
-
 ## License
 
-Copyright (C) 2012 FIXME
+Copyright (C) 2012 Corey Williams
 
 Distributed under the Eclipse Public License, the same as Clojure.
